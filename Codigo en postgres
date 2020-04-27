@@ -1,1 +1,91 @@
+create table facultad(
+fac_id int8,
+fac_nom varchar(125),
+primary key (fac_id));
+
+create table docente(
+doc_id int8,
+doc_nom varchar(30),
+doc_ape varchar(30),
+doc_sal float4,
+doc_facid int8,
+primary key (doc_id),
+foreign key (doc_facid) references facultad(fac_id));
+
+create table materia(
+mat_id int8,
+mat_nom varchar(30),
+mat_cre int4,
+primary key (mat_id));
+
+create table docxmat(
+dxm_docid int8,
+dxm_matid int8,
+primary key (dxm_docid,dxm_matid),
+foreign key (dxm_docid)references docente(doc_id),
+foreign key (dxm_matid)references materia(mat_id));
+
+create table estudiante(
+est_id int8,
+est_nom varchar(30),
+est_fec date,
+primary key (est_id));
+
+create table matxest(
+mxe_matid int8,
+mxe_estid int8,
+mxe_not float4,
+primary key (mxe_matid,mxe_estid),
+foreign key (mxe_matid) references materia(mat_id),
+foreign key (mxe_estid) references estudiante (est_id));
+
+create table presencial(
+pre_sede varchar(250))
+inherits (estudiante);
+
+create table distancia(
+dis_usu varchar(100),
+dis_con varchar(200)) 
+inherits (estudiante); 
+
+insert into presencial (est_id, est_nom, est_fec, pre_sede) values (99, 'junior', '08/08/1999', 'pamplona');
+insert into presencial (est_id, est_nom, est_fec, pre_sede) values (74,'ladeus','04/09/1994', 'pamplona');
+insert into presencial (est_id, est_nom, est_fec, pre_sede) values (11,'jjuan','04/09/2018', 'pamplona');
+
+insert into distancia (est_id, est_nom, est_fec, dis_usu, dis_con) values (67,'stive','04/09/2018', 'jjumacd', '1242eef');
+insert into distancia (est_id, est_nom, est_fec, dis_usu, dis_con) values (17,'maicol','04/09/2018', 'maicol88','1233errt');
+
+insert into facultad(fac_id, fac_nom) values (1020, 'arqui');
+insert into facultad(fac_id, fac_nom) values (1030,'esco');
+insert into facultad(fac_id, fac_nom) values (1040,'ing');
+
+insert into docente(doc_id, doc_nom, doc_ape, doc_sal, doc_facid) values (001, 'carrillo', 'palacios',10000,1040);
+insert into docente(doc_id, doc_nom, doc_ape, doc_sal, doc_facid) values (002,'jose', 'lopez', 30000,1040);
+insert into docente(doc_id, doc_nom, doc_ape, doc_sal, doc_facid) values (005,'juan pablo', 'lopez', 300000,1020);
+insert into docente(doc_id, doc_nom, doc_ape, doc_sal, doc_facid) values (004,'carlos', 'caspa', 300000,1030);
+insert into docente(doc_id, doc_nom, doc_ape, doc_sal, doc_facid) values (008,'matil', 'da', 300000,1020);
+
+insert into materia(mat_id, mat_nom, mat_cre) values (07, 'calculo', 4);
+insert into materia(mat_id, mat_nom, mat_cre) values (05, 'catedra', 1);
+insert into materia(mat_id, mat_nom, mat_cre) values (09, ' algebra',3);
+
+
+insert into docxmat(dxm_docid, dxm_matid) values (001,07);
+insert into docxmat(dxm_docid, dxm_matid) values (002,05);
+insert into docxmat(dxm_docid, dxm_matid) values (008,09);
+insert into docxmat(dxm_docid, dxm_matid) values (004,05);
+insert into docxmat(dxm_docid, dxm_matid) values (005,05);
+
+insert into estudiante(est_id, est_nom, est_fec) values (99, 'junior', '08/08/1999');
+insert into estudiante(est_id, est_nom, est_fec) values (74,'ladeus','04/09/1994');
+insert into estudiante(est_id, est_nom, est_fec) values (11,'jjuan','04/09/2018');
+insert into estudiante(est_id, est_nom, est_fec) values (67,'stive','04/09/2018');
+insert into estudiante(est_id, est_nom, est_fec) values (17,'maicol','04/09/2018'); 
+
+insert into matxest(mxe_matid, mxe_estid, mxe_not) values (07,99, 2.5);
+insert into matxest(mxe_matid, mxe_estid, mxe_not) values (05, 74, 4);
+insert into matxest(mxe_matid, mxe_estid, mxe_not) values (09, 11, 4.7);
+insert into matxest(mxe_matid, mxe_estid, mxe_not) values (07, 67, 1);
+insert into matxest(mxe_matid, mxe_estid, mxe_not) values (09, 17, 4.1);
+
 
