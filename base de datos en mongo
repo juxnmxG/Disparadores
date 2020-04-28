@@ -1,0 +1,13 @@
+use escuela;
+db.escuela.save({ "facultad": [{
+"fac_id": "",
+"fac_nom":""
+}] 
+} );
+
+db.escuela.save({ "docente": [{
+"doc_id": "",
+"doc_nom":"",
+"doc_ape" : "",
+}] 
+} );
