@@ -1,5 +1,6 @@
-// disparador que dicta auditoria a las entradas 
-
+////////////////////////////////////////////////
+disparador que dicta auditoria a las entradas  /
+////////////////////////////////////////////////
 CREATE OR REPLACE FUNCTION CONTROL_AUDITORIA() RETURNS TRIGGER AS 
 $$
 	begin
@@ -35,5 +36,30 @@ docente FOR EACH ROW EXECUTE PROCEDURE CONTROL_AUDITORIA();
 CREATE TRIGGER CONTROLAR_AUDITORIA AFTER INSERT OR DELETE OR UPDATE
 ON 
 materia FOR EACH ROW EXECUTE PROCEDURE CONTROL_AUDITORIA();
+
+///////////////////////////////////////////////////////////
+//              Disparador para sacar edad               //
+///////////////////////////////////////////////////////////
+
+CREATE OR REPLACE FUNCTION funcion_saca_edad() RETURNS TRIGGER AS
+$$
+DECLARE edad date;
+BEGIN
+	edad := age(CURRENT_DATE, new.est_fec);
+	RAISE NOTICE 'edad : %', edad;
+	RAISE NOTICE '32131231';
+	insert into estudiante (est_id, est_nom, est_fec) 
+	values (000, 'juanito', edad);
+	RETURN NEW;
+END; 
+$$
+LANGUAGE 'plpgsql';
+ALTER FUNCTION funcion_saca_edad() OWNER TO postgres;
+
+CREATE TRIGGER trigger_saca_edad_1 AFTER INSERT 
+ON estudiante
+FOR EACH ROW EXECUTE PROCEDURE funcion_saca_edad ();
+
+insert into estudiante(est_id, est_nom, est_fec) values (000, 'juanito', '09/10/96');
 
 
