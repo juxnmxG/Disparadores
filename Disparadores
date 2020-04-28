@@ -1,0 +1,28 @@
+// disparador 
+CREATE OR REPLACE FUNCTION CONTROL_AUDITORIA() RETURNS TRIGGER AS 
+$$
+	begin
+		IF (TG_OP = 'DELETE' ) THEN 
+			INSERT INTO TABLA_AUDITORIA ( "nombre_tabla", "operacion", "v_anterior", "v_nuevo", "fecha_modificacion", "usuario" )
+			VALUES (TG_TABLE_NAME, 'D', OLD, NEW, current_date, USER);
+			RETURN OLD;
+		ELSIF (TG_OP = 'UPDATE' ) THEN 
+			INSERT INTO TABLA_AUDITORIA ( "nombre_tabla", "operacion", "v_anterior", "v_nuevo", "fecha_modificacion", "usuario" )
+			VALUES (TG_TABLE_NAME, 'U', OLD, NEW, current_date, USER);
+			RETURN NEW;
+		ELSIF (TG_OP = 'INSERT' ) THEN 
+			INSERT INTO TABLA_AUDITORIA ( "nombre_tabla", "operacion", "v_anterior", "v_nuevo", "fecha_modificacion", "usuario" )
+			VALUES (TG_TABLE_NAME, 'I', '', NEW, current_date, USER);
+			RETURN NEW;
+		END IF;
+		RETURN NULL;
+end
+$$
+LANGUAGE 'plpgsql' VOLATILE COST 100;
+ALTER FUNCTION CONTROL_AUDITORIA() OWNER TO postgres;
+
+////////////////////////////////////////////////////////////////////////
+
+CREATE TRIGGER CONTROLAR_AUDITORIA AFTER INSERT OR DELETE OR UPDATE
+ON 
+estudiante FOR EACH ROW EXECUTE PROCEDURE CONTROL_AUDITORIA();
