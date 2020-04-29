@@ -1,7 +1,7 @@
-// comando con el cual mongoDB tiene la auditoria sobre una base de datos//
-
+// comando con el cual mongoDB tiene la auditoria sobre una base de datos utlizaldo node.js//
 
 const { MongoClient } = require('mongodb');
+const stream = require('stream');
 
 async function main() {
     /**
@@ -27,5 +27,9 @@ async function main() {
         await client.close();
     }
 }
+async function monitorListingsUsingStreamAPI(client, timeInMs = 60000, pipeline = []) { 
+    
+}
+
 
 main().catch(console.error);
