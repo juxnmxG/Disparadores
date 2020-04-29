@@ -5,32 +5,53 @@ const stream = require('stream');
 
 async function main() {
     /**
-     * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
-     * See http://bit.ly/NodeDocs_lauren for more details
+     * 
+     * 
      */
     const uri = "mongodb+srv://<username>:<password>@<your-cluster-url>/test?retryWrites=true&w=majority";
     
+    await monitorListingsUsingStreamAPI(client);
     /**
-     * The Mongo Client you will use to interact with your database
-     * See bit.ly/Node_MongoClient for more details
+     * 
+     * 
      */
     const client = new MongoClient(uri);
 
     try {
-        // Connect to the MongoDB cluster
+        //conexion  al cluster de mongoDB
         await client.connect();
-
-        // Make the appropriate DB calls
-
+        
+       await client.db("sample_airbnb").collection("listingsAndReviews").updateOne({ _id: listingId }, { $set: updatedListing });
+       console.log(`${result.matchedCount} document(s) matched the query criteria.`);
+       
+       
+        
     } finally {
-        // Close the connection to the MongoDB cluster
+        // Cierre de la conexion con el cluster 
         await client.close();
     }
+       
+
+    
+  
 }
+
 async function monitorListingsUsingStreamAPI(client, timeInMs = 60000, pipeline = []) { 
     
     const collection = client.db("escuela").collection("estudiante");
     
+    const changeStream = collection.watch(pipeline);
+    
+    changeStream.pipe(
+      new stream.Writable({
+          objectMode: true,
+          write: function (doc, _, cb) {
+              console.log(doc);
+              cb();
+          }
+       })
+);
+    await closeChangeStream(timeInMs, changeStream);
 }
 
 
