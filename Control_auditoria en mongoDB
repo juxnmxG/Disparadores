@@ -1,3 +1,5 @@
+// comando con el cual mongoDB tiene la auditoria sobre una base de datos//
+
 db.runCommand( { dbStats : 1 } )
 {
     "db" : "escuela",
