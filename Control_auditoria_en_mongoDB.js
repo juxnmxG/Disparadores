@@ -29,6 +29,8 @@ async function main() {
 }
 async function monitorListingsUsingStreamAPI(client, timeInMs = 60000, pipeline = []) { 
     
+    const collection = client.db("escuela").collection("estudiante");
+    
 }
 
 
