@@ -1,39 +1,44 @@
+//creacion de la base de datos escuela//
+
 use escuela;
-db.escuela.save({ "facultad": [{
+
+//creacion de los documentos que tendran la informacion//
+
+db.escuela.save({ "facultad": {
 "fac_id": "",
 "fac_nom":""
-}] 
+}
 } );
 
-db.escuela.save({ "docente": [{
+db.escuela.save({ "docente": {
 "doc_id": "",
 "doc_nom":"",
 "doc_ape" : "",
 "doc_sal" : "",
 "doc_facid"
-}] 
+} 
 } );
 
-db.escuela.save({ "materia": [{
+db.escuela.save({ "materia": {
 "mat_id": "",
 "mat_nom":"",
 "mat_cre" : ""
-}] 
+}
 } );
 
-db.escuela.save({ "estudiante": [{
+db.escuela.save({ "estudiante": {
 "est_id": "",
 "est_nom":"",
 "est_fec" : ""
-}] 
+}
 } );
 
-db.escuela.save({ "presencial": [{
+db.escuela.save({ "presencial": {
 "pre_sede": "",
 "est_id": "",
 "est_nom":"",
 "est_fec" : ""
-}] 
+} 
 } );
 
 
