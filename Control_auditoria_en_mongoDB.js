@@ -21,13 +21,13 @@ async function main() {
         //conexion  al cluster de mongoDB
         await client.connect();
         
-       const result0 = await client.db("estudiante").collection("estudiante").updateOne({ _id: listingId }, { $set: updatedListing });
+       const result0 = await client.db("estudiante").collection("").updateOne({  });
        console.log(`${result.matchedCount} document(s) matched the query criteria.`);
         
-       const result1 = await client.db("estudiante").collection("").insertOne(newListing);
+       const result1 = await client.db("estudiante").collection("").insertOne();
        console.log(`New listing created with the following id: ${result.insertedId}`);
        
-       const result2 = await client.db("sample_airbnb").collection("").deleteOne({ _id: listingId });
+       const result2 = await client.db("estudiante").collection("").deleteOne({  });
         
     } finally {
         // Cierre de la conexion con el cluster 
