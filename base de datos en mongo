@@ -9,5 +9,32 @@ db.escuela.save({ "docente": [{
 "doc_id": "",
 "doc_nom":"",
 "doc_ape" : "",
+"doc_sal" : "",
+"doc_facid"
 }] 
 } );
+
+db.escuela.save({ "materia": [{
+"mat_id": "",
+"mat_nom":"",
+"mat_cre" : ""
+}] 
+} );
+
+db.escuela.save({ "estudiante": [{
+"est_id": "",
+"est_nom":"",
+"est_fec" : ""
+}] 
+} );
+
+db.escuela.save({ "presencial": [{
+"pre_sede": "",
+"est_id": "",
+"est_nom":"",
+"est_fec" : ""
+}] 
+} );
+
+
+
